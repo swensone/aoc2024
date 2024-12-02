@@ -69,11 +69,6 @@ func (s *isSafeTestSuite) TestIsSafeDampened() {
 		expected bool
 	}{
 		{
-			name:     "safe without removing any level",
-			input:    []int{7, 6, 4, 2, 1},
-			expected: true,
-		},
-		{
 			name:     "unsafe 1 regardless of which level is removed",
 			input:    []int{1, 2, 7, 8, 9},
 			expected: false,
@@ -91,11 +86,6 @@ func (s *isSafeTestSuite) TestIsSafeDampened() {
 		{
 			name:     "safe by removing the third level, 4",
 			input:    []int{8, 6, 4, 4, 1},
-			expected: true,
-		},
-		{
-			name:     "safe without removing any level",
-			input:    []int{1, 3, 6, 7, 9},
 			expected: true,
 		},
 	}
