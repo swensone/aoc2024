@@ -40,9 +40,9 @@ func main() {
 		enable           = true
 	)
 
-	nextidx, containsTokens := nextIndex(text)
+	nextToken, containsTokens := nextTokenIndex(text)
 	for containsTokens {
-		text = text[nextidx:]
+		text = text[nextToken:]
 		if strings.HasPrefix(text, doToken) {
 			text = text[doTokenLen:]
 			enable = true
@@ -60,46 +60,48 @@ func main() {
 			}
 		}
 
-		nextidx, containsTokens = nextIndex(text)
+		nextToken, containsTokens = nextTokenIndex(text)
 	}
 
 	fmt.Printf("sum: %d\n", sum)
 	fmt.Printf("filteredsum: %d\n", filteredsum)
 }
 
-func nextIndex(text string) (int, bool) {
-	nextIndex := len(text)
-	mulidx := strings.Index(text, mulToken)
-	doidx := strings.Index(text, doToken)
-	dontidx := strings.Index(text, dontToken)
+func nextTokenIndex(text string) (int, bool) {
+	nextIdx := len(text)
+
+	mulIdx := strings.Index(text, mulToken)
+	doIdx := strings.Index(text, doToken)
+	dontIdx := strings.Index(text, dontToken)
 	contains := false
-	if mulidx != -1 {
-		nextIndex = min(nextIndex, mulidx)
+
+	if mulIdx != -1 {
+		nextIdx = min(nextIdx, mulIdx)
 		contains = true
 	}
-	if doidx != -1 {
-		nextIndex = min(nextIndex, doidx)
+	if doIdx != -1 {
+		nextIdx = min(nextIdx, doIdx)
 		contains = true
 	}
-	if dontidx != -1 {
-		nextIndex = min(nextIndex, dontidx)
+	if dontIdx != -1 {
+		nextIdx = min(nextIdx, dontIdx)
 		contains = true
 	}
 
-	return nextIndex, contains
+	return nextIdx, contains
 }
 
 func handleMulToken(text string) (int, error) {
-	num1 := text[:strings.Index(text, ",")]
-	temptext := text[strings.Index(text, ",")+1:]
-	num2 := temptext[:strings.Index(temptext, ")")]
+	num1End := strings.Index(text, ",")
+	num2Start := num1End + 1
+	num2End := max(strings.Index(text, ")"), num2Start)
 
-	v1, err := strconv.Atoi(num1)
+	v1, err := strconv.Atoi(text[:num1End])
 	if err != nil {
 		return 0, err
 	}
 
-	v2, err := strconv.Atoi(num2)
+	v2, err := strconv.Atoi(text[num2Start:num2End])
 	if err != nil {
 		return 0, err
 	}
