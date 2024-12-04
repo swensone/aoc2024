@@ -66,43 +66,39 @@ func (ws *WordSearch) FindWords() int {
 	found := 0
 	for i := 0; i < ws.Lines; i++ {
 		for j := 0; j < ws.Columns; j++ {
-			// check horizontal
-			if ws.Index[indexKey(ws.Word[0], i, j)] && ws.Index[indexKey(ws.Word[1], i, j+1)] && ws.Index[indexKey(ws.Word[2], i, j+2)] && ws.Index[indexKey(ws.Word[3], i, j+3)] {
+			// M . S
+			// . A .
+			// M . S
+			if ws.Index[indexKey('M', i, j)] && ws.Index[indexKey('S', i, j+2)] &&
+				ws.Index[indexKey('A', i+1, j+1)] &&
+				ws.Index[indexKey('M', i+2, j)] && ws.Index[indexKey('S', i+2, j+2)] {
 				found++
 			}
 
-			// check reverse horizontal
-			if ws.Index[indexKey(ws.Word[3], i, j)] && ws.Index[indexKey(ws.Word[2], i, j+1)] && ws.Index[indexKey(ws.Word[1], i, j+2)] && ws.Index[indexKey(ws.Word[0], i, j+3)] {
+			// M . M
+			// . A .
+			// S . S
+			if ws.Index[indexKey('M', i, j)] && ws.Index[indexKey('M', i, j+2)] &&
+				ws.Index[indexKey('A', i+1, j+1)] &&
+				ws.Index[indexKey('S', i+2, j)] && ws.Index[indexKey('S', i+2, j+2)] {
 				found++
 			}
 
-			// check vertical
-			if ws.Index[indexKey(ws.Word[0], i, j)] && ws.Index[indexKey(ws.Word[1], i+1, j)] && ws.Index[indexKey(ws.Word[2], i+2, j)] && ws.Index[indexKey(ws.Word[3], i+3, j)] {
+			// S . M
+			// . A .
+			// S . M
+			if ws.Index[indexKey('S', i, j)] && ws.Index[indexKey('M', i, j+2)] &&
+				ws.Index[indexKey('A', i+1, j+1)] &&
+				ws.Index[indexKey('S', i+2, j)] && ws.Index[indexKey('M', i+2, j+2)] {
 				found++
 			}
 
-			// check reverse vertical
-			if ws.Index[indexKey(ws.Word[3], i, j)] && ws.Index[indexKey(ws.Word[2], i+1, j)] && ws.Index[indexKey(ws.Word[1], i+2, j)] && ws.Index[indexKey(ws.Word[0], i+3, j)] {
-				found++
-			}
-
-			// check diagonal down
-			if ws.Index[indexKey(ws.Word[0], i, j)] && ws.Index[indexKey(ws.Word[1], i+1, j+1)] && ws.Index[indexKey(ws.Word[2], i+2, j+2)] && ws.Index[indexKey(ws.Word[3], i+3, j+3)] {
-				found++
-			}
-
-			// check reverse diagonal down
-			if ws.Index[indexKey(ws.Word[3], i, j)] && ws.Index[indexKey(ws.Word[2], i+1, j+1)] && ws.Index[indexKey(ws.Word[1], i+2, j+2)] && ws.Index[indexKey(ws.Word[0], i+3, j+3)] {
-				found++
-			}
-
-			// check diagonal up
-			if ws.Index[indexKey(ws.Word[0], i, j)] && ws.Index[indexKey(ws.Word[1], i+1, j-1)] && ws.Index[indexKey(ws.Word[2], i+2, j-2)] && ws.Index[indexKey(ws.Word[3], i+3, j-3)] {
-				found++
-			}
-
-			// check reverse diagonal up
-			if ws.Index[indexKey(ws.Word[3], i, j)] && ws.Index[indexKey(ws.Word[2], i+1, j-1)] && ws.Index[indexKey(ws.Word[1], i+2, j-2)] && ws.Index[indexKey(ws.Word[0], i+3, j-3)] {
+			// S . S
+			// . A .
+			// M . M
+			if ws.Index[indexKey('S', i, j)] && ws.Index[indexKey('S', i, j+2)] &&
+				ws.Index[indexKey('A', i+1, j+1)] &&
+				ws.Index[indexKey('M', i+2, j)] && ws.Index[indexKey('M', i+2, j+2)] {
 				found++
 			}
 		}
