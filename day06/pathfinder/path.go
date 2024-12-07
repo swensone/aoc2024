@@ -19,19 +19,23 @@ type Pathfinder struct {
 	Direction  direction
 	PositionX  int
 	PositionY  int
+	Block      string
 	Visited    map[string]bool
 	Obstacle   map[string]bool
+	Path       []string
 	VisitCount int
 	MapWidth   int
 	MapHeight  int
 }
 
-func New(scanner *bufio.Scanner, debug bool) *Pathfinder {
+func New(scanner *bufio.Scanner, block string, debug bool) *Pathfinder {
 	p := &Pathfinder{
 		Debug:     debug,
 		Direction: North,
+		Block:     block,
 		Visited:   map[string]bool{},
 		Obstacle:  map[string]bool{},
+		Path:      []string{}
 	}
 
 	line := 0
@@ -57,11 +61,12 @@ func New(scanner *bufio.Scanner, debug bool) *Pathfinder {
 	return p
 }
 
-func (s *Pathfinder) FindPath() int {
+func (s *Pathfinder) FindPath() ([]string], bool) {
 	step := 0
 	s.Visit()
 
 	continueLoop := true
+	looped := false
 	for continueLoop {
 		if s.Debug {
 			fmt.Printf("step: %d, x: %d, y: %d\n", step, s.PositionX, s.PositionY)
@@ -69,13 +74,21 @@ func (s *Pathfinder) FindPath() int {
 			fmt.Println()
 		}
 		step++
-		continueLoop = s.NextStep()
+		continueLoop, looped: = s.NextStep()
+		if looped {
+			break
+		}
 	}
 
-	return s.VisitCount
+	visited := []string{}
+	for k, _ := range s.Visited {
+		visited = append(visited, k)
+	}
+
+	return visited, looped
 }
 
-func (s *Pathfinder) NextStep() bool {
+func (s *Pathfinder) NextStep() (bool, bool) {
 	for {
 		x, y := s.Step()
 		if s.Debug {
@@ -84,6 +97,7 @@ func (s *Pathfinder) NextStep() bool {
 		if s.Obstacle[fmt.Sprintf("%d,%d", x, y)] {
 			s.TurnRight()
 		} else {
+			s.Path = append(s.Path, fmt.Sprintf("%d:%d", x, y))
 			s.PositionX = x
 			s.PositionY = y
 			break
@@ -91,22 +105,25 @@ func (s *Pathfinder) NextStep() bool {
 	}
 
 	if s.PositionX < 0 || s.PositionX >= s.MapWidth || s.PositionY < 0 || s.PositionY >= s.MapHeight {
-		return false
+		return false, false
 	}
 
-	s.Visit()
+	looped := s.Visit()
 
-	return true
+	return true, looped
 }
 
-func (s *Pathfinder) Visit() {
+func (s *Pathfinder) Visit() bool {
 	if !s.Visited[fmt.Sprintf("%d,%d", s.PositionX, s.PositionY)] {
 		if s.Debug {
 			fmt.Printf("VISIT: %d,%d\n", s.PositionX, s.PositionY)
 		}
 		s.Visited[fmt.Sprintf("%d,%d", s.PositionX, s.PositionY)] = true
 		s.VisitCount++
+	} else {
+		return s.LoopCheck()
 	}
+	return false
 }
 
 func (s *Pathfinder) PrintMap() {
@@ -152,4 +169,16 @@ func (s *Pathfinder) Step() (int, int) {
 
 func (s *Pathfinder) TurnRight() {
 	s.Direction = (s.Direction + 1) % 4
+}
+
+func (s *Pathfinder) LoopCheck() bool {
+	i := 4
+	pathLen := len(s.Path)
+	for pathLen >= i*2 {
+		if slices.Equals(s.Path[pathLen-i:], s.Path[pathLen-2*i:s.Path[pathLen-i]]) {
+			return true
+		}
+		i+2
+	}
+	return false
 }
