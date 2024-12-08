@@ -32,7 +32,7 @@ func main() {
 	loops := 0
 	for _, v := range visited {
 		lp := pathfinder.New(scanner, v, cfg.Debug)
-		_, looped := p.FindPath()
+		_, looped := lp.FindPath()
 		if looped {
 			loops++
 			fmt.Printf("found loop at %s, loops %d\n", v, loops)
