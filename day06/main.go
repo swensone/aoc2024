@@ -25,7 +25,7 @@ func main() {
 	p := pathfinder.New(scanner, "", cfg.Debug)
 	initialPos := fmt.Sprintf("%d:%d", p.PositionX, p.PositionY)
 	visited, _ := p.FindPath()
-	fmt.Printf("visited: %s\n", len(visited))
+	fmt.Printf("visited: %d\n", len(visited))
 
 	// part 2: look for loops
 	visited = cslices.RemoveElement(visited, initialPos)
