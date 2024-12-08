@@ -37,7 +37,7 @@ func main() {
 	loops := 0
 	for _, v := range visited {
 		fmt.Printf("testing position %s\n", v)
-		lp := pathfinder.New(bufio.NewScanner(bytes.NewReader(data)), v, true)
+		lp := pathfinder.New(bufio.NewScanner(bytes.NewReader(data)), v, cfg.Debug)
 		visited, looped := lp.FindPath()
 		if looped {
 			loops++
