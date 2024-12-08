@@ -35,7 +35,7 @@ func New(scanner *bufio.Scanner, block string, debug bool) *Pathfinder {
 		Block:     block,
 		Visited:   map[string]bool{},
 		Obstacle:  map[string]bool{},
-		Path:      []string{}
+		Path:      []string{},
 	}
 
 	line := 0
@@ -61,7 +61,7 @@ func New(scanner *bufio.Scanner, block string, debug bool) *Pathfinder {
 	return p
 }
 
-func (s *Pathfinder) FindPath() ([]string], bool) {
+func (s *Pathfinder) FindPath() ([]string, bool) {
 	step := 0
 	s.Visit()
 
