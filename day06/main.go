@@ -36,14 +36,16 @@ func main() {
 	visited = cslices.RemoveElement(visited, initialPos)
 	loops := 0
 	for _, v := range visited {
-		fmt.Printf("testing position %s\n", v)
+		if cfg.Debug {
+			fmt.Printf("testing position %s\n", v)
+		}
 		lp := pathfinder.New(bufio.NewScanner(bytes.NewReader(data)), v, cfg.Debug)
 		visited, looped := lp.FindPath()
 		if looped {
 			loops++
-			fmt.Printf("obstacle %s: found loop, loops %d, visited %d\n", v, loops, len(visited))
-		} else {
-			fmt.Printf("obstacle %s: no loops, loops %d, visited %d\n", v, loops, len(visited))
+		}
+		if cfg.Debug {
+			fmt.Printf("obstacle %s: loop: %t, loop: %d, visited: %d\n", v, looped, loops, len(visited))
 		}
 	}
 	fmt.Printf("loops: %d\n", loops)
