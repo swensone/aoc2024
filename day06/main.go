@@ -23,7 +23,7 @@ func main() {
 	// part 1: check for how many spaces we visited
 	scanner := bufio.NewScanner(f)
 	p := pathfinder.New(scanner, "", cfg.Debug)
-	initialPos := fmt.Sprintf("%s:%s", p.PositionX, p.PositionY)
+	initialPos := fmt.Sprintf("%d:%d", p.PositionX, p.PositionY)
 	visited, _ := p.FindPath()
 	fmt.Printf("visited: %s\n", len(visited))
 
