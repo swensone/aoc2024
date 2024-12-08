@@ -26,7 +26,7 @@ func main() {
 	}
 }
 
-func parseLine(line string) int, []int {
+func parseLine(line string) (int, []int) {
 	split1 := strings.Split(line, ": ")
 	total, _ := strconv.Atoi(split[0])
 	remainder := strings.Split(split1[1], " ")
