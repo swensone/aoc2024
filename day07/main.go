@@ -24,18 +24,17 @@ func main() {
 	for scanner.Scan() {
 		text := scanner.Text()
 		total, vals := parseLine(text)
-		fmt.Println("total: %d, vals: %+v\n", vals)
+		fmt.Println("total: %d, vals: %+v\n", total, vals)
 	}
 }
 
 func parseLine(line string) (int, []int) {
 	split1 := strings.Split(line, ": ")
-	total, _ := strconv.Atoi(split[0])
-	remainder := strings.Split(split1[1], " ")
+	total, _ := strconv.Atoi(split1[0])
 	vals := []int{}
 	for _, v := range strings.Split(split1[1], " ") {
 		val, _ := strconv.Atoi(v)
-		vals = append(vals, v)
+		vals = append(vals, val)
 	}
 	return total, vals
 }
