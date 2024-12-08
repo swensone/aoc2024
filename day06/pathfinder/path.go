@@ -143,6 +143,8 @@ func (s *Pathfinder) PrintMap() {
 				}
 			} else if s.Obstacle[fmt.Sprintf("%d,%d", x, y)] {
 				fmt.Print("#")
+			} else if fmt.Sprintf("%d,%d", x, y) == s.Block {
+				fmt.Print("@")
 			} else if s.Visited[fmt.Sprintf("%d,%d", x, y)] {
 				fmt.Print("X")
 			} else {
