@@ -21,8 +21,11 @@ func main() {
 	defer f.Close()
 
 	// part 1: check for how many spaces we visited
-	scanner := bufio.NewScanner(f)
-	p := pathfinder.New(scanner, "", cfg.Debug)
+	data, err := io.ReadAll(f)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	p := pathfinder.New(bufio.NewScanner(bytes.NewReader(data)), "", cfg.Debug)
 	initialPos := fmt.Sprintf("%d,%d", p.PositionX, p.PositionY)
 	visited, _ := p.FindPath()
 	fmt.Printf("visited: %d\n", len(visited))
@@ -32,7 +35,7 @@ func main() {
 	loops := 0
 	for _, v := range visited {
 		fmt.Printf("testing position %s\n", v)
-		lp := pathfinder.New(scanner, v, cfg.Debug)
+		lp := pathfinder.New(bufio.NewScanner(bytes.NewReader(data)), v, true)
 		visited, looped := lp.FindPath()
 		if looped {
 			loops++
