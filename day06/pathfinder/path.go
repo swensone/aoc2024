@@ -3,6 +3,7 @@ package pathfinder
 import (
 	"bufio"
 	"fmt"
+	"slices"
 )
 
 type direction int
@@ -74,7 +75,7 @@ func (s *Pathfinder) FindPath() ([]string, bool) {
 			fmt.Println()
 		}
 		step++
-		continueLoop, looped := s.NextStep()
+		continueLoop, looped = s.NextStep()
 		if looped {
 			break
 		}
@@ -175,10 +176,10 @@ func (s *Pathfinder) LoopCheck() bool {
 	i := 4
 	pathLen := len(s.Path)
 	for pathLen >= i*2 {
-		if slices.Equals(s.Path[pathLen-i:], s.Path[pathLen-2*i:s.Path[pathLen-i]]) {
+		if slices.Equal(s.Path[pathLen-i:], s.Path[pathLen-2*i:pathLen-i]) {
 			return true
 		}
-		i+2
+		i += 2
 	}
 	return false
 }
