@@ -31,12 +31,14 @@ func main() {
 	visited = cslices.RemoveElement(visited, initialPos)
 	loops := 0
 	for _, v := range visited {
-		fmt.Println("testing position %s\n")
+		fmt.Printf("testing position %s\n", v)
 		lp := pathfinder.New(scanner, v, cfg.Debug)
 		visited, looped := lp.FindPath()
 		if looped {
 			loops++
 			fmt.Printf("obstacle %s: found loop, loops %d, visited %d\n", v, loops, len(visited))
+		} else {
+			fmt.Printf("obstacle %s: no loops, loops %d, visited %d\n", v, loops, len(visited))
 		}
 	}
 	fmt.Printf("loops: %d\n", loops)

@@ -95,7 +95,7 @@ func (s *Pathfinder) NextStep() (bool, bool) {
 		if s.Debug {
 			fmt.Printf("checking for obstacle at %d,%d\n", x, y)
 		}
-		if s.Obstacle[fmt.Sprintf("%d,%d", x, y)] {
+		if s.Obstacle[fmt.Sprintf("%d,%d", x, y)] || s.Block == fmt.Sprintf("%d,%d", x, y) {
 			s.TurnRight()
 		} else {
 			s.Path = append(s.Path, fmt.Sprintf("%d:%d", x, y))
