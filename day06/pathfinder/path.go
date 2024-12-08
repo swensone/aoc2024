@@ -74,7 +74,7 @@ func (s *Pathfinder) FindPath() ([]string, bool) {
 			fmt.Println()
 		}
 		step++
-		continueLoop, looped: = s.NextStep()
+		continueLoop, looped := s.NextStep()
 		if looped {
 			break
 		}
