@@ -35,7 +35,7 @@ func main() {
 	for scanner.Scan() {
 		text := scanner.Text()
 		total, vals := parseLine(text)
-		cnt := (valid(total, plus, 0, vals) + valid(total, times, 0, vals))
+		cnt := (valid(total, plus, 0, vals) + valid(total, times, 0, vals) + valid(total, concat, 0, vals))
 		if cnt > 0 {
 			sum += total
 			totalvalid += cnt
