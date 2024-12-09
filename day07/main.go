@@ -11,6 +11,13 @@ import (
 	"github.com/swensone/aoc2024/common/pkg/config"
 )
 
+type operation int
+
+const (
+	plus = iota
+	times
+)
+
 func main() {
 	cfg := config.Parse()
 
@@ -21,10 +28,15 @@ func main() {
 	defer f.Close()
 
 	scanner := bufio.NewScanner(f)
+	validcnt := 0
 	for scanner.Scan() {
 		text := scanner.Text()
 		total, vals := parseLine(text)
-		fmt.Println("total: %d, vals: %+v\n", total, vals)
+		cnt += (valid(total, plus, 0, vals) + valid(total, times, 0, vals))
+		if cnt > 0 {
+			sum += total
+			validcnt++
+		}
 	}
 }
 
@@ -38,3 +50,24 @@ func parseLine(line string) (int, []int) {
 	}
 	return total, vals
 }
+
+func valid(product int, op operation, res int, vals []int) int {
+	if op == plus {
+		res += vals[0]
+	} else {
+		res *= vals[0]
+	}
+
+	if len(vals) == 1 {
+		if product == res {
+			return 1
+		}
+		return 0
+	}
+
+	return valid(product, plus, res, vals[1:]) + valid(product, times, res, vals[1:])
+}
+
+
+
+
