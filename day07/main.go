@@ -29,6 +29,7 @@ func main() {
 
 	scanner := bufio.NewScanner(f)
 	validcnt := 0
+	sum := 0
 	for scanner.Scan() {
 		text := scanner.Text()
 		total, vals := parseLine(text)
@@ -38,6 +39,7 @@ func main() {
 			validcnt++
 		}
 	}
+	fmt.Printf("valid: %d, sum: %d\n", validcnt, sum)
 }
 
 func parseLine(line string) (int, []int) {
