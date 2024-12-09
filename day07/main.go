@@ -80,6 +80,8 @@ func valid(product int, op operation, res int, vals []int) int {
 	return valid(product, plus, res, vals[1:]) + valid(product, times, res, vals[1:]) + valid(product, concat, res, vals[1:])
 }
 
-func dprint(fmt string, a ...any) {
-	fmt.Printf(fmt, a...)
+func dprint(f string, a ...any) {
+	if debug {
+		fmt.Printf(f, a...)
+	}
 }
