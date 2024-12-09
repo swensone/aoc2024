@@ -19,8 +19,11 @@ const (
 	concat
 )
 
+var debug bool
+
 func main() {
 	cfg := config.Parse()
+	debug = cfg.Debug
 
 	f, err := os.Open(cfg.Input)
 	if err != nil {
@@ -35,11 +38,13 @@ func main() {
 	for scanner.Scan() {
 		text := scanner.Text()
 		total, vals := parseLine(text)
+		dprint("total: %d, vals: %v\n", total, vals)
 		cnt := (valid(total, plus, 0, vals) + valid(total, times, 0, vals) + valid(total, concat, 0, vals))
 		if cnt > 0 {
 			sum += total
 			totalvalid += cnt
 			validcnt++
+			dprint("cnt: %d, validcnt: %d, totalvalid: %d, sum: %d\n", cnt, validcnt, totalvalid, sum)
 		}
 	}
 	fmt.Printf("valid: %d, total valid: %d sum: %d\n", validcnt, totalvalid, sum)
@@ -75,6 +80,6 @@ func valid(product int, op operation, res int, vals []int) int {
 	return valid(product, plus, res, vals[1:]) + valid(product, times, res, vals[1:]) + valid(product, concat, res, vals[1:])
 }
 
-
-
-
+func dprint(fmt string, a ...any) {
+	fmt.Printf(fmt, a...)
+}
