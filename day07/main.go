@@ -16,6 +16,7 @@ type operation int
 const (
 	plus = iota
 	times
+	concat
 )
 
 func main() {
@@ -58,8 +59,10 @@ func parseLine(line string) (int, []int) {
 func valid(product int, op operation, res int, vals []int) int {
 	if op == plus {
 		res += vals[0]
-	} else {
+	} else if op == times {
 		res *= vals[0]
+	} else {
+		res, _ = strconv.Atoi(strconv.Itoa(product) + strconv.Itoa(vals[0]))
 	}
 
 	if len(vals) == 1 {
@@ -69,7 +72,7 @@ func valid(product int, op operation, res int, vals []int) int {
 		return 0
 	}
 
-	return valid(product, plus, res, vals[1:]) + valid(product, times, res, vals[1:])
+	return valid(product, plus, res, vals[1:]) + valid(product, times, res, vals[1:]) + valid(product, concat, res, vals[1:])
 }
 
 
