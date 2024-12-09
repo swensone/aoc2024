@@ -67,7 +67,7 @@ func valid(product int, op operation, res int, vals []int) int {
 	} else if op == times {
 		res *= vals[0]
 	} else {
-		res, _ = strconv.Atoi(strconv.Itoa(product) + strconv.Itoa(vals[0]))
+		res, _ = strconv.Atoi(strconv.Itoa(res) + strconv.Itoa(vals[0]))
 	}
 
 	if len(vals) == 1 {
