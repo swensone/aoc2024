@@ -120,9 +120,12 @@ func main() {
 	fmt.Printf("print res: %d\n", val)
 
 	res := 0
-	for an, _ := range antinodes {
-		fmt.Println(an)
-		res++
+	for y := range maxY {
+		for x := range maxX {
+			if antinodes[Loc(x, y).ToString()] {
+				res++
+			}
+		}
 	}
 	
 	fmt.Printf("result: %d\n", res)
