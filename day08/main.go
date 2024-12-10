@@ -91,7 +91,7 @@ func main() {
 		maxy++
 	}
 
-	antinodes := map[string}bool
+	antinodes := map[string}bool{}
 	for c, locations := range antennas {
 		for _, l1 := range locations {
 			for _, l2 := range locations {
