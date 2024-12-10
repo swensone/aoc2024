@@ -117,8 +117,14 @@ func main() {
 	}
 
 	printMap(antmap, antinodes, maxX, maxY)
+
+	res := 0
+	for an, _ := range antinodes {
+		fmt.Println(an)
+		res++
+	}
 	
-	fmt.Printf("result: %d\n", len(antinodes))
+	fmt.Printf("result: %d\n", res)
 }
 
 func dprint(f string, a ...any) {
