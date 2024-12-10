@@ -115,9 +115,10 @@ func main() {
 			}
 		}
 	}
-
-	printMap(antmap, antinodes, maxX, maxY)
-
+	fmt.Printf("maxX: %d, maxY: %d\n", maxX, maxY)
+	val := printMap(antmap, antinodes, maxX, maxY)
+	fmt.Printf("print res: %d\n", val)
+	
 	res := 0
 	for an, _ := range antinodes {
 		fmt.Println(an)
@@ -137,7 +138,8 @@ func isalphanum(r rune) bool {
 	return unicode.IsLetter(r) || unicode.IsNumber(r)
 }
 
-func printMap(antennas map[string]string, antinodes map[string]bool, maxX, maxY int) {
+func printMap(antennas map[string]string, antinodes map[string]bool, maxX, maxY int) int {
+	res := 0
 	for y := range maxY {
 		for x := range maxX {
 			l := Loc(x, y)
@@ -147,6 +149,7 @@ func printMap(antennas map[string]string, antinodes map[string]bool, maxX, maxY 
 				continue
 			}
 			if antinodes[l.ToString()] {
+				res := 0
 				print("#")
 				continue
 			}
@@ -154,4 +157,5 @@ func printMap(antennas map[string]string, antinodes map[string]bool, maxX, maxY 
 		}
 		fmt.Println()
 	}
+	return res
 }
