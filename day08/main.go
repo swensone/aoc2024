@@ -128,7 +128,7 @@ func isalphanum(r rune) bool {
 	return unicode.IsLetter(r) || unicode.IsNumber(r)
 }
 
-func printMap(antennas map[string]string, antinodes map]string]bool, maxX, maxY int) {
+func printMap(antennas map[string]string, antinodes map[string]bool, maxX, maxY int) {
 	for y := range maxY {
 		for x := range maxX {
 			l := Loc(x, y)
