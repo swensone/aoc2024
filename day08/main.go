@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"unicode"
 
 	"github.com/swensone/aoc2024/common/pkg/config"
 )
@@ -85,11 +86,13 @@ func main() {
 		}
 
 		for i, c := range text {
-			if antennas[c] == nil {
-				antennas[c] = []Location{}
+			if isalphanum(c) {
+				if antennas[c] == nil {
+					antennas[c] = []Location{}
+				}
+				l := Loc(i, maxY)
+				antennas[c] = append(antennas[c], l)
 			}
-			l := Loc(i, maxY)
-			antennas[c] = append(antennas[c], l)
 		}
 		maxY++
 	}
@@ -115,4 +118,8 @@ func dprint(f string, a ...any) {
 	if debug {
 		fmt.Printf(f, a...)
 	}
+}
+
+func isalphanum(r rune) bool {
+	return unicode.IsLetter(r) || unicode.IsNumber(r)
 }
