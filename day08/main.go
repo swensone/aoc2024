@@ -122,7 +122,8 @@ func main() {
 	res := 0
 	for y := range maxY {
 		for x := range maxX {
-			if antinodes[Loc(x, y).ToString()] {
+			l := Loc(x, y)
+			if antinodes[l.ToString()] {
 				res++
 			}
 		}
