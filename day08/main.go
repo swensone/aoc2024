@@ -139,7 +139,7 @@ func printMap(antennas map[string]string, antinodes map[string]bool, maxX, maxY 
 			}
 			an, ok := antinodes[l.ToString()]
 			if ok {
-				print(an)
+				print("#")
 				continue
 			}
 			print(".")
