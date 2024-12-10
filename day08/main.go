@@ -21,7 +21,7 @@ const (
 var debug bool
 
 func Loc(x, y int) Location {
-	return &Location{X: x, Y: y}
+	return Location{X: x, Y: y}
 }
 
 type Location struct {
