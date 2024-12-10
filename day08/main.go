@@ -48,8 +48,8 @@ func (s *Location) Antinodes(l Location, maxX, maxY int) []Location {
 	diffy := s.Y - l.Y
 
 	antinode1 := Location{
-		X: s.X + diffX,
-		Y: s.Y + diffY,
+		X: s.X + diffx,
+		Y: s.Y + diffy,
 	}
 
 	if antinode1.X < maxX && antinode1.Y < maxY {
@@ -57,8 +57,8 @@ func (s *Location) Antinodes(l Location, maxX, maxY int) []Location {
 	}
 
 	antinode2 := Location{
-		X: l.X + diffX,
-		Y: l.Y + diffY,
+		X: l.X + diffx,
+		Y: l.Y + diffy,
 	}
 
 	if antinode2.X >= 0 && antinode2.Y >= 0 {
