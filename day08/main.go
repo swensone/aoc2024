@@ -44,6 +44,10 @@ func (s *Location) ToString() string {
 func (s *Location) Antinodes(l Location, maxX, maxY int) []Location {
 	res := []Location{}
 
+	if s.Equals(l) {
+		return nil
+	}
+
 	diffx := s.X - l.X
 	diffy := s.Y - l.Y
 
@@ -106,11 +110,9 @@ func main() {
 	for _, locations := range antennas {
 		for _, l1 := range locations {
 			for _, l2 := range locations {
-				if !l1.Equals(l2) {
-					ans := l1.Antinodes(l2, maxX, maxY)
-					for _, an := range ans {
-						antinodes[an.ToString()] = true
-					}
+				ans := l1.Antinodes(l2, maxX, maxY)
+				for _, an := range ans {
+					antinodes[an.ToString()] = true
 				}
 			}
 		}
