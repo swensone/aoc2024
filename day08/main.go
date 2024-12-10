@@ -75,23 +75,22 @@ func main() {
 	maxX := 0
 	maxY := 0
 	scanner := bufio.NewScanner(f)
-	antennas := map[char][]Location{}{}
+	antennas := make(map[char][]Location)
 	for scanner.Scan() {
 		text := scanner.Text()
-			if maxX == 0 {
-				maxX = len(text)
-			}
-
-			for i, c := range text {
-				if antennas[c] == nil {
-					antennas[c] = []Location{}
-				}
-				antennas[c] = append(antennas[c], Location{i, maxy})
-			}
-			maxy++
+		if maxX == 0 {
+			maxX = len(text)
 		}
+
+		for i, c := range text {
+			if antennas[c] == nil {
+				antennas[c] = []Location{}
+			}
+			antennas[c] = append(antennas[c], Location{i, maxy})
+		}
+		maxy++
 	}
-	
+
 	antinodes := map[string}bool
 	for c, locations := range antennas {
 		for _, l1 := range locations {
