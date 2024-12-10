@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"strconv"
-	"strings"
 
 	"github.com/swensone/aoc2024/common/pkg/config"
 )
@@ -21,7 +20,7 @@ const (
 
 var debug bool
 
-func Loc(x, y int) *Location {
+func Loc(x, y int) Location {
 	return &Location{X: x, Y: y}
 }
 
@@ -30,7 +29,7 @@ type Location struct {
 	Y int
 }
 
-func (s *Location) Equals(l *Location) bool {
+func (s *Location) Equals(l Location) bool {
 	if s.X == l.X && s.Y == l.Y {
 		return true
 	}
@@ -96,7 +95,7 @@ func main() {
 	}
 
 	antinodes := map[string]bool{}
-	for c, locations := range antennas {
+	for _, locations := range antennas {
 		for _, l1 := range locations {
 			for _, l2 := range locations {
 				if !l1.Equals(l2) {
