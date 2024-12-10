@@ -90,7 +90,7 @@ func main() {
 				antennas[c] = []Location{}
 			}
 			l := Loc(i, maxY)
-			antennas[c] = append(antennas[c], l})
+			antennas[c] = append(antennas[c], l)
 		}
 		maxY++
 	}
