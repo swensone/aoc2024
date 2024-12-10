@@ -79,6 +79,7 @@ func main() {
 	maxY := 0
 	scanner := bufio.NewScanner(f)
 	antennas := make(map[rune][]Location)
+	antmap := map[string]string{}
 	for scanner.Scan() {
 		text := scanner.Text()
 		if maxX == 0 {
@@ -91,6 +92,7 @@ func main() {
 					antennas[c] = []Location{}
 				}
 				l := Loc(i, maxY)
+				antmap[l.ToString()] = string(c)
 				antennas[c] = append(antennas[c], l)
 			}
 		}
@@ -110,6 +112,8 @@ func main() {
 			}
 		}
 	}
+
+	printMap(antmap, antinodes, maxX, maxY)
 	
 	fmt.Printf("result: %d\n", len(antinodes))
 }
@@ -122,4 +126,24 @@ func dprint(f string, a ...any) {
 
 func isalphanum(r rune) bool {
 	return unicode.IsLetter(r) || unicode.IsNumber(r)
+}
+
+func printMap(antennas map[string]string, antinodes map]string]bool, maxX, maxY int) {
+	for y := range maxY {
+		for x := range maxX {
+			l := Loc(x, y)
+			ant, ok := antennas[l.ToString()]
+			if ok {
+				print(ant)
+				continue
+			}
+			an, ok := antinodes[l.ToString()]
+			if ok {
+				print(an)
+				continue
+			}
+			print(".")
+		}
+		fmt.Println()
+	}
 }
