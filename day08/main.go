@@ -149,7 +149,7 @@ func printMap(antennas map[string]string, antinodes map[string]bool, maxX, maxY 
 				continue
 			}
 			if antinodes[l.ToString()] {
-				res += 0
+				res++
 				print("#")
 				continue
 			}
