@@ -41,7 +41,7 @@ func (s *Location) ToString() string {
 	return strconv.Itoa(s.X) + "," + strconv.Itoa(s.Y)
 }
 
-func (s *Location) Antinodes(l *Location, maxX, maxY int) []Location {
+func (s *Location) Antinodes(l Location, maxX, maxY int) []Location {
 	res := []Location{}
 
 	antinode1 := Location{
@@ -75,7 +75,6 @@ func main() {
 	}
 	defer f.Close()
 
-	res := 0
 	maxX := 0
 	maxY := 0
 	scanner := bufio.NewScanner(f)
@@ -90,9 +89,10 @@ func main() {
 			if antennas[c] == nil {
 				antennas[c] = []Location{}
 			}
-			antennas[c] = append(antennas[c], Loc{i, maxy})
+			l := Loc(i, maxY)
+			antennas[c] = append(antennas[c], l})
 		}
-		maxy++
+		maxY++
 	}
 
 	antinodes := map[string]bool{}
@@ -100,9 +100,9 @@ func main() {
 		for _, l1 := range locations {
 			for _, l2 := range locations {
 				if !l1.Equals(l2) {
-					ans := l1.Antinodes(l2)
+					ans := l1.Antinodes(l2, maxX, maxY)
 					for _, an := range ans {
-						antinodes[ans.ToString()] = true
+						antinodes[an.ToString()] = true
 					}
 				}
 			}
