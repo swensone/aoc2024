@@ -125,6 +125,7 @@ func main() {
 			l := Loc(x, y)
 			if antinodes[l.ToString()] {
 				res++
+				fmt.Printf("antinode: %s\n", l.ToString())
 			}
 		}
 	}
