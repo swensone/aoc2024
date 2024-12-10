@@ -21,6 +21,10 @@ const (
 
 var debug bool
 
+func Loc(x, y int) *Location {
+	return &Location{X: x, Y: y}
+}
+
 type Location struct {
 	X int
 	Y int
@@ -33,7 +37,7 @@ func (s *Location) Equals(l *Location) bool {
 	return false
 }
 
-func (s *Location) ToString() {
+func (s *Location) ToString() string {
 	return strconv.Itoa(s.X) + "," + strconv.Itoa(s.Y)
 }
 
@@ -75,7 +79,7 @@ func main() {
 	maxX := 0
 	maxY := 0
 	scanner := bufio.NewScanner(f)
-	antennas := make(map[char][]Location)
+	antennas := make(map[rune][]Location)
 	for scanner.Scan() {
 		text := scanner.Text()
 		if maxX == 0 {
@@ -86,7 +90,7 @@ func main() {
 			if antennas[c] == nil {
 				antennas[c] = []Location{}
 			}
-			antennas[c] = append(antennas[c], Location{i, maxy})
+			antennas[c] = append(antennas[c], Loc{i, maxy})
 		}
 		maxy++
 	}
