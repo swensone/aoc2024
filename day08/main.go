@@ -118,7 +118,7 @@ func main() {
 	fmt.Printf("maxX: %d, maxY: %d\n", maxX, maxY)
 	val := printMap(antmap, antinodes, maxX, maxY)
 	fmt.Printf("print res: %d\n", val)
-	
+
 	res := 0
 	for an, _ := range antinodes {
 		fmt.Println(an)
@@ -149,7 +149,7 @@ func printMap(antennas map[string]string, antinodes map[string]bool, maxX, maxY 
 				continue
 			}
 			if antinodes[l.ToString()] {
-				res := 0
+				res += 0
 				print("#")
 				continue
 			}
